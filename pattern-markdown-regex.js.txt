@@ -1,0 +1,30 @@
+const defaultRules: Rule[] = [
+  new Rule('header', [
+    new Pattern(/^#{6}\s?([^\n]+)/gm, '&lt;h6&gt;$1&lt;/h6&gt;'),
+    new Pattern(/^#{5}\s?([^\n]+)/gm, '&lt;h5&gt;$1&lt;/h5&gt;'),
+    new Pattern(/^#{4}\s?([^\n]+)/gm, '&lt;h4&gt;$1&lt;/h4&gt;'),
+    new Pattern(/^#{3}\s?([^\n]+)/gm, '&lt;h3&gt;$1&lt;/h3&gt;'),
+    new Pattern(/^#{2}\s?([^\n]+)/gm, '&lt;h2&gt;$1&lt;/h2&gt;'),
+    new Pattern(/^#{1}\s?([^\n]+)/gm, '&lt;h1&gt;$1&lt;/h1&gt;'),
+  ]),
+  new Rule('bold', [
+    new Pattern(/\*\*\s?([^\n]+)\*\*/g, '&lt;b&gt;$1&lt;/b&gt;'),
+    new Pattern(/\_\_\s?([^\n]+)\_\_/g, '&lt;b&gt;$1&lt;/b&gt;'),
+  ]),
+  new Rule('italic', [
+    new Pattern(/\*\s?([^\n]+)\*/g, '&lt;i&gt;$1&lt;/i&gt;'),
+    new Pattern(/\_\s?([^\n]+)\_/g, '&lt;i&gt;$1&lt;/i&gt;'),
+  ]),
+  new Rule('image', [
+    new Pattern(/\!\[([^\]]+)\]\((\S+)\)/g, '&lt;img src="$2" alt="$1" /&gt;'),
+  ]),
+  new Rule('link', [
+    new Pattern(
+      /\[([^\n]+)\]\(([^\n]+)\)/g,
+      '&lt;a href="$2" target="_blank" rel="noopener"&gt;$1&lt;/a&gt;'
+    ),
+  ]),
+  new Rule('paragraph', [
+    new Pattern(/([^\n]+\n?)/g, '\n&lt;p&gt;$1&lt;/p&gt;\n'),
+  ]),
+];
