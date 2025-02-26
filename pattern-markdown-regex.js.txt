@@ -1,3 +1,23 @@
+class Rule {
+  name: string;
+  patterns: Pattern[];
+
+  constructor(name: string, patterns: Pattern[]) {
+    this.name = name;
+    this.patterns = patterns;
+  }
+}
+
+class Pattern {
+  regex: RegExp;
+  replacement: string;
+
+  constructor(regex: RegExp, replacement: string) {
+    this.regex = regex;
+    this.replacement = replacement;
+  }
+}
+
 const defaultRules: Rule[] = [
   new Rule('header', [
     new Pattern(/^#{6}\s?([^\n]+)/gm, '&lt;h6&gt;$1&lt;/h6&gt;'),
@@ -28,3 +48,20 @@ const defaultRules: Rule[] = [
     new Pattern(/([^\n]+\n?)/g, '\n&lt;p&gt;$1&lt;/p&gt;\n'),
   ]),
 ];
+
+function applyRules(text: string, rules: Rule[]): string {
+  for (const rule of rules) {
+    for (const pattern of rule.patterns) {
+      text = text.replace(pattern.regex, pattern.replacement);
+    }
+  }
+  return text;
+}
+
+
+// exemple d'utilisation : 
+
+const inputText = "Hello **world**! This is *italic* and this is __bold__.";
+const outputText = applyRules(inputText, defaultRules);
+
+console.log(outputText);
